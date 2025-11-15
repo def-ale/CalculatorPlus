@@ -1,5 +1,6 @@
 package br.edu.calc.plus.CalculatorPlus;
 
+import br.edu.calc.plus.config.security.user.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,6 +13,9 @@ class CalculatorPlusApplicationTests {
 
 	@MockBean
 	private PasswordEncoder passwordEncoder;
+
+	@MockBean
+	private UserDetailsServiceImpl userDetailsService;
 	@Test
 	void contextLoads() {
 	}
