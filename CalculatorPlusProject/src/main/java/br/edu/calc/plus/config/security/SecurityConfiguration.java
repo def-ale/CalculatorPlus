@@ -31,14 +31,11 @@ import br.edu.calc.plus.config.security.user.UserDetailsServiceImpl;
         jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    
     @Autowired
     private PasswordEncoder password;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
     
     // Configuracoes de recursos estaticos(js, css, imagens, etc.)
     @Override
@@ -66,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true).invalidateHttpSession(true);
                 
     }
-        
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -77,8 +74,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         builder.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-    
-    
+
+
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
