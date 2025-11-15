@@ -1,5 +1,5 @@
 # Use a imagem oficial do OpenJDK 11
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre-slim-buster
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
