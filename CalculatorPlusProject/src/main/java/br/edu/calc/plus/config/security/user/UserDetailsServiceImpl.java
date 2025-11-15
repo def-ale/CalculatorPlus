@@ -34,8 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private String passwordValue;
     @Value("${project.config.userAdmin}")
     private String userValue;
-    @Autowired
-    private PasswordEncoder password;
+    //@Autowired
+    //private PasswordEncoder password;
     @Autowired
     private UsuarioRepo userRepo;
 
