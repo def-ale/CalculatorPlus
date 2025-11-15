@@ -1,5 +1,5 @@
 # Use a imagem oficial do OpenJDK 11
-FROM openjdk:11-jre-slim-buster
+FROM eclipse-temurin:11-jre
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
