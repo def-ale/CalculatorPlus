@@ -10,12 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("test")
 class CalculatorPlusApplicationTests {
-
-	@MockBean
-	private PasswordEncoder passwordEncoder;
-
-	@MockBean
-	private UserDetailsServiceImpl userDetailsService;
 	@Test
 	void contextLoads() {
 	}
