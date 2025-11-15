@@ -30,7 +30,10 @@ public class CalculatorPlusApplication {
 	 @Autowired
 	 private UsuarioRepo uDao;
 	 
-	 private PasswordEncoder password = new BCryptPasswordEncoder();
+	 //private PasswordEncoder password = new BCryptPasswordEncoder();
+
+     @Autowired
+     private PasswordEncoder password;
 
     @Bean
     public CommandLineRunner runner() {
