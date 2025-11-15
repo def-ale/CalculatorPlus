@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo">
+
+		<div class="row">
+
+
+
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="card card-stats">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="nc-icon nc-globe text-warning"></i>
+								</div>
+							</div>
+							<div class="col-7 col-md-8">
+								<div class="numbers">
+									<p class="card-category">Usuários</p>
+									<p class="card-title" th:text="${numeroUsers}">0
+									<p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="card card-stats">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="nc-icon nc-money-coins text-success"></i>
+								</div>
+							</div>
+							<div class="col-7 col-md-8">
+								<div class="numbers">
+									<p class="card-category">Premiações</p>
+									<p class="card-title" th:text="${premiacaoUsers}">Cr$ 0
+
+									<p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="card card-stats">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="nc-icon nc-tap-01 text-danger"></i>
+								</div>
+							</div>
+							<div class="col-7 col-md-8">
+								<div class="numbers">
+									<p class="card-category">Erros</p>
+									<p class="card-title" th:text="${numeroErros}">0
+									<p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="card card-stats">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="nc-icon nc-favourite-28 text-primary"></i>
+								</div>
+							</div>
+							<div class="col-7 col-md-8">
+								<div class="numbers">
+									<p class="card-category">Acertos</p>
+									<p class="card-title" th:text="${numeroAcertos}">0
+									<p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card ">
+					<div class="card-header ">
+						<c:set var="graph" value="ok" scope="request" />
+						<h5 class="card-title">Comportamento dos Usuários</h5>
+						<p class="card-category">últimos 10 dias</p>
+					</div>
+					<div class="card-body ">
+						<canvas id=chartHours width="400" height="100"></canvas>
+					</div>
+					<div class="card-footer ">
+						<hr>
+						<div class="stats">
+							<i class="fa fa-history"></i> atualizado as <span id="timeUpdate">00:00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+        <script th:src="@{/assets/demo/demo.js}"></script>
+        
+		<script>
+
+
+			dataAjax = function () {
+				//alert("oi");
+				$.ajax
+					({
+						type: 'GET', //Esta propriedade diz que tipo de intera��o faremos entre os dados, neste caso por POST
+						dataType: 'json', //Tipo de retorno que tera o ajax, neste caso retornaremos um tipo html, p�gina em html
+						url: '/api/data', //Qual p�gina o ajax ira buscar 
+						success: function (retorno) 
+						{
+							//alert(retorno);
+							var data = new Date();
+							demo.initChartsPages(retorno);
+							$("#timeUpdate").html(data.getHours().toString().padStart(2, '0') + ":" + data.getMinutes().toString().padStart(2, '0'));    
+						}
+					});
+			}
+
+			dataAjax();
+			setInterval(dataAjax, 500000);
+
+		</script>
+
+	</main>
+
+</body>
+
+</html>

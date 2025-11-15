@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo">
+
+		<div class="row">
+
+
+			<div class="col-md-12">
+				<div class="card card-user">
+					<div class="card-header">
+						<h5 class="card-title">Perfil do Usuário</h5>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/user}"  th:object="${usuario}" method="POST">
+							<div class="row">
+								<div class="col-md-6 pr-1">
+									<div class="form-group">
+										<label for="cpNome">*Nome</label>
+										
+										<input type="text" class="form-control" id="cpNome"  autofocus="true"
+                                                   required="required" placeholder="nome" value="" 
+                                                   th:field="*{nome}" 
+                                                   th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{nome}"></span>
+                                            </div>	
+                                            									
+									</div>
+								</div>
+								<div class="col-md-3 px-1">
+									<div class="form-group">
+										<label for="cpLogin">*Login</label>
+										
+										<input type="text" class="form-control" id="cpLogin" 
+                                                   required="required" minlength="4" maxlength="15" placeholder="Login" 
+                                                   th:field="*{login}" 
+                                                   th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{login}"></span>
+                                            </div>	
+                                            
+									</div>
+								</div>
+								<div class="col-md-3 pl-1">
+									<div class="form-group">
+										<label for="cpSenha">*Senha</label>
+										
+										<input type="password" class="form-control" id="cpSenha" 
+                                                   required="required" minlength="6" placeholder="Senha" 
+                                                   th:field="*{senha}" 
+                                                   th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{senha}"></span>
+                                            </div>	
+                                            
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 pr-1">
+									<div class="form-group">
+										<label  for="cpEmail">*email</label>
+										
+										<input type="email" class="form-control" id="cpEmail" 
+                                                   required="required"  placeholder="Email" 
+                                                   th:field="*{email}" 
+                                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{email}"></span>
+                                            </div>
+                                            
+									</div>
+								</div>
+								<div class="col-md-6 pl-1">
+									<div class="form-group">
+										<label  for="cpCidade">Cidade</label>
+										
+										<input type="text" class="form-control" id="cpCidade" 
+                                                    placeholder="Cidade" 
+                                                   th:field="*{cidade}" 
+                                                   th:classappend="${#fields.hasErrors('cidade')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{cidade}"></span>
+                                            </div>
+                                            
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="cpData">*Data de Nascimento</label>
+										
+										<input type="date" class="form-control" id="cpData" 
+                                                   required="required"  placeholder="Data de Nascimento" 
+                                                   th:field="*{nascimento}" 
+                                                   th:classappend="${#fields.hasErrors('nascimento')} ? 'is-invalid'" />
+                                            <div class="invalid-feedback">
+                                                <span th:errors="*{nascimento}"></span>
+                                            </div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="update ml-auto mr-auto">
+									<button type="submit" class="btn btn-primary btn-round">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</main>
+
+</body>
+
+</html>

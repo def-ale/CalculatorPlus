@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo">
+
+		<div class="row">
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"> 
+                <i class="nc-icon nc-trophy"></i>
+                Minhas Competições</h4>
+            <p class="category">Competiçoes entre Alunos</p>
+                <a th:href="@{/competicao/new}"  class="btn btn-primary btn-round">Participar de nova competição</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <tr><th>
+                                Data
+                            </th>
+                            <th>
+                                Duração
+                            </th>
+                            <th>
+                                Bonificação
+                            </th>
+                            <th>
+                                Acertos
+                            </th>
+                            <th >
+                                Erros
+                            </th>
+                            <th class="text-right">
+                                ...
+                            </th>
+                        </tr></thead>
+                    <tbody>
+                    
+                    <tr th:if="${lista.size() == 0}">
+                    	<td colspan="5">Não Participou de Competições, Participe agora...</td>
+                    </tr>
+                        
+                        <tr th:each="c : ${lista}">
+                        
+                         	<td th:text="${c.dataFormatada}">10/10/2021</td>
+                         	
+                         	<td th:text="${#numbers.formatDecimal(c.tempo/60.0,1,2)}+' min'">0</td>
+                         	
+                         	<td th:text="'Cr$ '+${#numbers.formatDecimal(c.bonificacao,1,2)}">0</td>
+                         	
+                         	<td th:text="${c.acertos}">0</td>
+                         	
+                         	<td th:text="${c.erros}">0</td>
+                         	
+                         	 <td class="text-right">
+                                    <a th:href="@{/competicao/{id}/detalhe(id=${c.idPartida})}" >
+                                        <i class="nc-icon nc-alert-circle-i"></i>
+                                    </a>
+                                </td>
+                        
+                        
+                        </tr>
+                        
+                  <!--      <c:forEach items="${requestScope.competicoes}" var="c" >
+                            <tr>
+                                <td>
+                                    ${ c.dataFormatada}
+                                </td>
+                                <td>
+                                    Cr$ ${c.bonificacao}
+                                </td>
+                                <td>
+                                    ${c.acertos}
+                                </td>
+                                <td>
+                                    ${c.erros}
+                                </td>
+                                <td class="text-right">
+                                    <a th:href="@{/competicao/{id}/detalhe(id=${c.id})}"  >
+                                        <i class="nc-icon nc-alert-circle-i"></i>
+                                        a
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach> -->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+		</div>
+
+
+	</main>
+
+</body>
+
+</html>

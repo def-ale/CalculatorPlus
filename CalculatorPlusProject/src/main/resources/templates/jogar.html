@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo" >
+
+			<div class="card card-user" style="margin: 0 auto; width: 600px;">
+				<div class="image stretch">
+					<img src="/assets/img/bkg-1.png" alt="...">
+				</div>
+				<div class="card-body">
+					<div class="author">
+						<a href="#">
+							<img class="avatar border-gray" src="/assets/img/relativity.png" alt="...">
+							<h3 class="title" th:text="'Pergunta '+${pergunta}">Pergunta 0</h3>
+						</a>
+						<p class="description">
+							Resolva a questão a seguir:
+						</p>
+					</div>
+					<p class="description text-center">
+					<h1 class="text-center" th:text="${jogo.valor1 +' '+jogo.operador.operador+' '+jogo.valor2}" >
+					10 + 10</h1>
+					</p>
+				</div>
+				<div class="card-footer">
+					<hr>
+					<div class="button-container">
+						<div class="row">
+							<div class="col-lg-3 col-md-6 col-6 ml-auto">
+								<h5  >
+									<span th:utext="${pergunta+' / 10'}"></span>
+									<br />
+									<small>Perguntas</small>
+								</h5>
+							</div>
+							<div class="col-lg-4 col-md-8 col-4 ml-auto mr-auto">
+								<form th:action="@{next}" method="POST">
+									<input type="hidden" name="idp" th:value="${idPartida}" />
+									<input type="hidden" name="idjogo" th:value="${jogo.idjogo}" />
+									<input type="hidden" name="perg" th:value="${pergunta}" />
+									<h5>
+									<div class="form-group">
+									<input type="text" class="form-control" name="cpResposta" required="true"
+											placeholder="0" autocomplete="off" autofocus value="">
+										<br>
+										<button type="submit" class="btn btn-primary btn-round">Próxima</button>
+									</div>
+									</h5>
+								</form>
+							</div>
+							<div class="col-lg-3 mr-auto">
+								<h5>
+								<span th:utext="'Cr$ '+${jogo.bonus}"></span>
+									<br>
+									<small>bônus</small>
+								</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+	</main>
+
+</body>
+
+</html>

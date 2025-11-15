@@ -1,0 +1,48 @@
+================================================
+PartidaTesteIntegracao.java - Testes de Integração
+================================================
+
+OBJETIVO:
+Testar a integração do `PartidaService` com a camada de persistência (banco de dados H2).
+Garante que o fluxo completo de uma partida (iniciar, jogar, finalizar) é salvo e recuperado
+corretamente, e que as regras de negócio, como a de uma competição por dia, são aplicadas.
+
+CAMADA TESTADA:
+- Service (`PartidaService`)
+- Repositories (`PartidaRepo`, `JogoRepo`, `UsuarioRepo`)
+- Banco de Dados (H2 em memória)
+
+TIPO DE TESTE:
+- Integração (`@SpringBootTest`)
+
+MÉTODOS TESTADOS:
+
+1. deveProcessarPartidaCompletaESalvarResultadoCorretamente:
+   - Verifica se uma partida completa (10 jogos, com 8 acertos e 2 erros) é processada e
+     persistida corretamente no banco de dados.
+   - Entrada: Chamadas de serviço para iniciar, jogar e finalizar uma partida.
+   - Resultado esperado: O objeto `Partida` recuperado do banco reflete os resultados
+     corretos (8 acertos, 2 erros, tempo e bônus registrados).
+
+2. naoDevePermitirIniciarSegundaPartidaNoMesmoDia:
+   - Testa a regra de negócio que impede um usuário de competir mais de uma vez no mesmo dia.
+   - Entrada: Simulação de uma partida completa já finalizada no dia.
+   - Resultado esperado: O método `partidaService.userJaCompetiuHoje()` deve retornar `true`.
+
+3. deveRetornarHistoricoDePartidasCorretamente:
+   - Verifica se o histórico de jogos de um usuário é recuperado e mapeado para `JogoListDTO`
+     corretamente.
+   - Entrada: Uma `Partida` com dados conhecidos (7 acertos, 3 erros) salva manualmente no banco.
+   - Resultado esperado: A lista de `JogoListDTO` retornada contém os dados exatos da partida inserida.
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Limpa os repositórios `jogoRepo`, `partidaRepo` e `usuarioRepo`.
+- Cria e salva um `Usuario` padrão para ser usado nos testes.
+
+LIMPEZA DEPOIS DE CADA TESTE (@Transactional):
+- A anotação `@Transactional` em cada método de teste garante que todas as operações no banco
+  de dados sejam revertidas (rollback) ao final da execução, isolando os testes.
+
+OBSERVAÇÕES:
+- Estes testes validam a lógica de negócio do `PartidaService` em conjunto com a camada de
+  persistência, garantindo a integridade dos dados conforme os requisitos RF04 e RF05.

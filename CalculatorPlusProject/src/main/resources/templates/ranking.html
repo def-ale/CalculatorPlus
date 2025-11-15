@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo">
+
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">
+							<i class="nc-icon nc-trophy"></i> Ranking Geral
+						</h4>
+						<p class="category">Competição entre Alunos</p>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<tr>
+										<th>Nome</th>
+										<th>Bonificação</th>
+										<th>Tempo de Jogo</th>
+										<th>Competições</th>
+										<th class="text-right">...</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+								<tr th:each="c : ${lista}">
+                        
+		                         	<td th:text="${c.nome}">Zezin</td>
+		                         	
+		                         	<td th:text="'Cr$ '+${#numbers.formatDecimal(c.bonusTotal,1,2)}">0</td>
+		                         	
+		                         	<td th:text="${#numbers.formatDecimal(c.tempoTotal/60.0,1,2)}+' min'">0</td>		                         	
+		                         	
+		                         	<td th:text="${c.competicoes}">0</td>
+		                         			                         	
+		                         	 <td class="text-right">...
+		                                </td>		                        
+		                        
+		                        </tr>
+								
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</main>
+
+</body>
+
+</html>

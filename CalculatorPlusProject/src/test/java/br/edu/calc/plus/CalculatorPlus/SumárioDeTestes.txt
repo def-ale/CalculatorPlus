@@ -1,0 +1,66 @@
+=========================================================
+Calculator Plus - Sumário de Testes
+=========================================================
+
+Este documento fornece um resumo conciso da estratégia de testes implementada
+para o projeto Calculator Plus, garantindo a qualidade e a robustez da aplicação.
+
+Autor: Alexandre Ferreira Bertolin
+Matrícula: 37938
+
+----------------------------------------
+Tipos de Testes Realizados
+----------------------------------------
+
+A estratégia de testes foi dividida em três camadas principais para cobrir
+diferentes aspectos da aplicação, desde a lógica de negócio fundamental até a
+experiência do usuário final.
+
+1. Testes Unitários
+--------------------
+- **Objetivo**: Validar os menores componentes da aplicação de forma isolada,
+  garantindo que a lógica interna de cada classe funcione como esperado.
+- **Tecnologias**: JUnit 5, Mockito.
+- **Classes Testadas**:
+    - `Jogo` e `EOperator`: Validação dos cálculos matemáticos, verificação de
+      respostas (correta/incorreta) e tratamento de exceções (ex: divisão por zero).
+    - `JogoService`: Garantia de que a geração de jogos e o cálculo de bônus
+      inicial estão corretos.
+    - `PartidaService`: Verificação da lógica de negócio de uma partida, como
+      cálculo de bônus, contagem de acertos/erros e finalização.
+
+2. Testes de Integração
+------------------------
+- **Objetivo**: Verificar a colaboração entre diferentes camadas da aplicação,
+  principalmente a integração do serviço com a camada de persistência.
+- **Tecnologias**: SpringBootTest, JUnit 5, Banco de Dados H2 em memória.
+- **Fluxo Testado**:
+    - `PartidaService com Banco de Dados`: Garante que o ciclo de vida completo
+      de uma partida (iniciar, jogar, finalizar) é corretamente persistido e
+      recuperado do banco de dados, e que regras de negócio (ex: uma competição
+      por dia) são aplicadas.
+
+3. Testes de Tela (End-to-End)
+--------------------------------
+- **Objetivo**: Simular a jornada real do usuário final através da interface
+  gráfica da aplicação, garantindo que os fluxos críticos funcionem de ponta a ponta.
+- **Tecnologias**: Selenium WebDriver, JUnit 5.
+- **Fluxos Testados**:
+    - **Autenticação**: Validação do login com sucesso (credenciais válidas) e
+      falha (credenciais inválidas), garantindo o correto redirecionamento e
+      exibição de mensagens de erro (RF01).
+    - **Competição**: Simulação de um usuário completando uma competição,
+      respondendo às perguntas e verificando se a página de resultados exibe
+      as informações de forma precisa (RF04, RF05).
+
+----------------------------------------
+Conclusão
+----------------------------------------
+A combinação desses três tipos de testes assegura uma cobertura abrangente,
+validando desde as regras de negócio mais específicas até a experiência do
+usuário, resultando em uma aplicação mais confiável e de alta qualidade.
+
+*Observação*
+Alguns testes podem falhar. Há um erro crítico no método do Enum EOperator que não verifica se "v1" e "v2" (valor 1 e valor 2)
+podem ser 0 (zero), o que implica em erro caso a operação sorteada seja divisão. Os testes apontaram o erro. Eu informei ao professor
+responsável (Daves) sobre o erro.

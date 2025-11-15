@@ -1,0 +1,39 @@
+================================================
+LoginTest.java - Testes de Visão (E2E)
+================================================
+
+OBJETIVO:
+Testar a funcionalidade de autenticação da aplicação da perspectiva do usuário final,
+simulando tentativas de login através de um navegador web (Firefox).
+
+CAMADA TESTADA:
+- UI (Interface do Usuário)
+- Interação com o endpoint de autenticação do backend.
+
+TIPO DE TESTE:
+- Visão / End-to-End (E2E) com Selenium WebDriver.
+
+MÉTODOS TESTADOS:
+
+1. testLoginSucesso:
+   - Simula uma tentativa de login com credenciais válidas.
+   - Entrada: Nome de usuário e senha corretos (`daves`/`123456`).
+   - Resultado esperado: O usuário é autenticado com sucesso e redirecionado para a página
+     principal, onde um link de logout (`/logout`) se torna visível.
+
+2. testLoginFalho:
+   - Simula uma tentativa de login com credenciais inválidas.
+   - Entrada: Nome de usuário e senha incorretos.
+   - Resultado esperado: A autenticação falha, o usuário permanece na página de login e uma
+     mensagem de erro é exibida.
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Configura e inicia uma instância do `FirefoxDriver` do Selenium.
+
+LIMPEZA DEPOIS DE CADA TESTE (@AfterEach):
+- Fecha a instância do navegador (`driver.quit()`) para liberar os recursos.
+
+OBSERVAÇÕES:
+- Estes testes validam o fluxo de autenticação do usuário (RF01) na UI.
+- Os testes rodam contra uma instância pré-existente da aplicação (em `http://localhost:9000`)
+  e não gerenciam o ciclo de vida do servidor Spring.

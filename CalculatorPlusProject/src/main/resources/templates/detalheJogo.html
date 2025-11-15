@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<body>
+	<main class="layout-content" layout:fragment="corpo">
+
+		
+    <div class="card card-user">
+        <div class="image stretch">
+            <img src="/assets/img/ganhando1.jpg" alt="...">
+        </div>
+        <div class="card-body">
+            <div class="author">
+                <a href="#">
+                    <img class="avatar border-gray" src="/assets/img/podium.png" alt="...">
+                    <c:if test="${requestScope.status == null}">
+                        <h3 class="title">Parabéns </h3>                        
+                    </c:if>
+                    <c:if test="${requestScope.status != null}">
+                        <h3 class="title"  th:text="${partida.dataFormatada}"> </h3>                        
+                    </c:if>
+                </a>
+                <p class="description" th:text="'Tempo :: '+${#numbers.formatDecimal(partida.tempo/60.0,1,2)}+' minutos'">
+                    xx
+                </p>
+            </div>
+            <p class="description text-center">
+            <h1  class="text-center">
+            	<span th:text="'Acertos :: '+${partida.acertos}"></span><br />
+            	<span th:text="'Erros :: '+${partida.erros}"></span><br />
+            	<span th:text="'Pontuaçao :: '+${partida.bonificacaoFormatada}"></span><br />
+                
+            </h1>
+            </p>
+        </div>
+        <div class="card-footer">
+            <hr>
+            <div class="button-container">
+                <c:if test="${requestScope.status != null}">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-12 ml-auto mr-auto">
+                            <div class="card"  style="background-color: #f4f3ef">
+                                <div class="card-header">
+                                    <h4 class="card-title">Questões</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled team-members">
+                                        
+                                           
+                                            <li th:each="j,loop : ${partida.jogoList}">
+                                                <div class="row">
+                                                    <div class="col-md-2 col-2">
+                                                        <div class="avatar" style="width: 85px; height: 64px; border: none;">
+                                                            <span th:text="${loop.index + 1}"></span>                                                            
+                                                            
+                                                            <img th:src="'/assets/img/'+${j.correct?'ok1.png':'nok1.png'}" alt="Resp Image" 
+                                                            class="img-circle img-no-padding img-responsive">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 col-7">
+                                                        <h3 th:text="${j.valor1 +' '+j.operador.operador+' '+j.valor2+' = '+j.resultado }"> 10 + 10 = 20</h3>
+                                                    </div>
+                                                    <div class="col-md-3 col-3 text-right">
+                                                        <h2 th:text="${j.resposta}"> 0 </h2>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                       
+                                      
+                                    </ul>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </c:if>
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-10 ml-auto mr-auto">
+                            <h5>
+                                <a th:href="@{/competicao}" class="btn btn-primary btn-round">Minhas Competições</a>
+                            </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+	</main>
+
+</body>
+
+</html>

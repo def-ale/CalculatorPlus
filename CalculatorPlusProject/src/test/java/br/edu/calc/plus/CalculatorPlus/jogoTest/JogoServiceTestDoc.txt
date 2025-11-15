@@ -1,0 +1,41 @@
+===============================================
+JogoServiceTest - Testes Unitários
+===============================================
+
+OBJETIVO:
+Testar a classe JogoService de forma isolada, garantindo que:
+- Jogos sejam gerados corretamente.
+- Bônus inicial esteja dentro do intervalo esperado.
+- Resultados calculados batam com o operador matemático.
+
+CAMADA TESTADA:
+- Service (JogoService)
+- Dependências mockadas: JogoRepo
+
+TIPO DE TESTE:
+- Unitário
+
+MÉTODOS TESTADOS:
+1. deveGerarJogosDeterministicosComBonusValido:
+   - Cria 4 jogos com operadores diferentes (soma, subtração, multiplicação, divisão).
+   - Calcula o bônus inicial via método `bonusInicial`.
+   - Verifica se o resultado do jogo bate com o cálculo do operador.
+   - Verifica se o bônus está no intervalo esperado (0.1 a 18).
+
+2. deveGerarBonusValidoParaTodosOperadores:
+   - Itera sobre todos os operadores disponíveis (EOperator.values()).
+   - Calcula o bônus inicial para cada operador.
+   - Verifica se o bônus está no intervalo esperado (0.1 a 18).
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Inicializa mocks do Mockito.
+- Configura retorno padrão do JogoRepo.
+- Cria lista de jogos mockados.
+- Log de inicialização para acompanhamento.
+
+LIMPEZA DEPOIS DE CADA TESTE (@AfterEach):
+- Fecha mocks para evitar efeitos colaterais entre testes.
+
+OBSERVAÇÕES:
+- Testes unitários não dependem de banco de dados real ou outras classes concretas.
+- Garante confiabilidade da lógica de negócio do JogoService antes da integração.

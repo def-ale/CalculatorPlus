@@ -1,0 +1,74 @@
+===============================================
+PartidaServiceTest - Testes Unitários
+===============================================
+
+OBJETIVO:
+Testar a classe `PartidaService`, garantindo que:
+- Métodos de inicialização, atualização e finalização de partidas funcionem corretamente.
+- A lógica de cálculo de bônus e contagem de acertos/erros esteja correta.
+- Diferentes cenários de partidas (todos acertos, todos erros, mistos) sejam tratados de forma consistente.
+
+CAMADA TESTADA:
+- Service (`PartidaService`)
+- Interage com repositórios (`PartidaRepo`, `JogoRepo`, `UsuarioRepo`) e serviço de jogos (`JogoService`) através de mocks.
+
+TIPO DE TESTE:
+- Unitário
+
+MÉTODOS TESTADOS:
+
+1. getMeusJogos_deveRetornarCamposCorretos:
+   - Verifica se `getMeusJogos` retorna corretamente os dados da DTO (`JogoListDTO`).
+   - Checa campos: data do jogo, acertos, erros, bonificação, tempo.
+   - Entrada: uma partida com 1 acerto e 0 erro.
+   - Resultado esperado: DTO refletindo corretamente a partida.
+
+2. userJaCompetiuHoje_deveRetornarTrueOuFalse:
+   - Testa o método `userJaCompetiuHoje`.
+   - Entrada: mocks simulando usuário já competiu ou não no dia atual.
+   - Resultado esperado: `true` se usuário jogou, `false` caso contrário.
+
+3. iniciarPartida_deveCriar10Jogos:
+   - Verifica se `iniciarPartida` cria exatamente 10 jogos.
+   - Usa mock do `jogoService` para gerar a lista de jogos.
+   - Resultado esperado: partida inicializada com 10 jogos.
+
+4. savePartida_respostaCorreta_aplicaBonus:
+   - Testa `savePartida` quando a resposta está correta.
+   - Confirma que o bônus do jogo é aplicado à partida.
+   - Resultado esperado: bonificação aumentada conforme regra (ex: +2).
+
+5. savePartida_respostaIncorreta_removeMetadeBonus:
+   - Testa `savePartida` com resposta incorreta.
+   - Confirma que metade do bônus do jogo é removida da partida.
+   - Resultado esperado: bonificação negativa (ex: -1).
+
+6. finalizarPartida_todosAcertos_duplicaBonus:
+   - Testa `FinalizaPartida` com todos os jogos acertados.
+   - Confirma duplicação do bônus final e registro do tempo da partida.
+   - Entrada: partida com múltiplos acertos (3 acertos no teste).
+   - Resultado esperado: bônus final duplicado (ex: 12), tempo positivo.
+
+7. finalizarPartida_mistos_acertosEerros:
+   - Testa `FinalizaPartida` com acertos e erros mistos.
+   - Confirma cálculo correto do bônus (acertos positivos, erros negativos).
+   - Entrada: partida com 2 acertos e 2 erros.
+   - Resultado esperado: bônus final ajustado conforme regra (ex: 2), tempo positivo.
+
+8. finalizarPartida_semAcertos_bonusMantido:
+   - Testa `FinalizaPartida` com todos os jogos incorretos.
+   - Confirma que o bônus final reflete apenas perdas.
+   - Entrada: partida com 0 acertos e 3 erros.
+   - Resultado esperado: bônus negativo total (ex: -3).
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Inicializa mocks com `MockitoAnnotations.openMocks(this)`.
+- Cria uma partida padrão (`partidaPadrao`) com 1 acerto e 0 erro, usada nos testes que requerem partida base.
+
+LIMPEZA DEPOIS DE CADA TESTE (@AfterEach):
+- Não é necessário, pois os testes usam mocks e não geram efeitos colaterais globais.
+
+OBSERVAÇÕES:
+- Todos os testes são unitários, focados na lógica do `PartidaService`.
+- Nenhum teste acessa banco de dados real ou serviços externos; todas as dependências são mockadas.
+- Garantem consistência da aplicação em diferentes cenários de partidas e respostas.

@@ -1,0 +1,47 @@
+===============================================
+JogoTest - Testes Unitários
+===============================================
+
+OBJETIVO:
+Testar a classe Jogo e os operadores matemáticos EOperator, garantindo que:
+- Operações matemáticas (soma, subtração, multiplicação, divisão) sejam calculadas corretamente.
+- A lógica de acerto do jogo (`estaCerto` / `isCorrect`) funcione corretamente.
+- Casos de exceção, como divisão por zero, sejam tratados corretamente.
+
+CAMADA TESTADA:
+- Model (Jogo, EOperator)
+- Nenhuma dependência externa necessária.
+
+TIPO DE TESTE:
+- Unitário
+
+MÉTODOS TESTADOS:
+1. testeCalculoOperadores:
+   - Verifica se os operadores matemáticos realizam os cálculos corretos:
+     - Soma: 5 + 3 = 8
+     - Subtração: 5 - 3 = 2
+     - Multiplicação: 5 * 3 = 15
+     - Divisão: 10 / 2 = 5
+   - Usa assertEquals com precisão decimal para validação.
+
+2. testeEstaCerto:
+   - Cria objetos Jogo com respostas corretas e incorretas.
+   - Verifica se os métodos `estaCerto()` e `isCorrect()` retornam true para acertos e false para erros.
+   - Garante consistência da lógica de pontuação baseada no resultado.
+
+3. divisaoPorZeroLancaException:
+   - Cria um jogo com divisor zero.
+   - Verifica se a operação lança `ArithmeticException`.
+   - Garante robustez do modelo frente a erros matemáticos.
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Não é necessário neste arquivo, pois cada teste é independente e auto-contido.
+- Cada teste cria os objetos Jogo necessários localmente.
+
+LIMPEZA DEPOIS DE CADA TESTE (@AfterEach):
+- Não é necessário, já que não há efeitos colaterais ou mocks globais.
+
+OBSERVAÇÕES:
+- Todos os testes são unitários, focados na lógica interna do modelo.
+- Não dependem de banco de dados, serviços externos ou interface.
+- Garantem que o modelo Jogo e os operadores matemáticos funcionem de forma consistente no contexto da aplicação.

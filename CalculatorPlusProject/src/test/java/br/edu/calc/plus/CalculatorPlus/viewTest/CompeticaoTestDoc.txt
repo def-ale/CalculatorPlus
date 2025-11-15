@@ -1,0 +1,43 @@
+================================================
+CompeticaoTest.java - Testes de Visão (E2E)
+================================================
+
+OBJETIVO:
+Testar a funcionalidade de competição da perspectiva do usuário final, simulando interações
+reais através de um navegador web (Firefox). Valida o fluxo completo, desde o login até a
+visualização dos resultados.
+
+CAMADA TESTADA:
+- UI (Interface do Usuário)
+- Interação completa com o backend (Controllers, Services, Repositories) e banco de dados.
+
+TIPO DE TESTE:
+- Visão / End-to-End (E2E) com Selenium WebDriver.
+
+MÉTODOS TESTADOS:
+
+1. testGanharCompeticao:
+   - Simula um usuário que responde corretamente a todas as 10 perguntas de uma competição.
+   - Entrada: Credenciais de um usuário válido.
+   - Resultado esperado: O usuário finaliza a competição e é redirecionado com sucesso para a
+     página de detalhes (`/detalhe`).
+
+2. testVerificaConteudoDaPaginaDeDetalhes:
+   - Simula um usuário que responde 9 perguntas corretamente e 1 incorretamente.
+   - Valida se a página de detalhes da competição exibe com precisão os resultados de cada
+     pergunta.
+   - Entrada: Credenciais de um usuário válido.
+   - Resultado esperado: A página de detalhes deve listar 10 itens, com a expressão, a resposta
+     do usuário e a imagem de status (acerto/erro) corretas para cada um.
+
+CONFIGURAÇÃO ANTES DE CADA TESTE (@BeforeEach):
+- Limpa o `usuarioRepo` e cria um usuário de teste padrão.
+- Configura e inicia uma instância do `FirefoxDriver` do Selenium.
+- Inicia o servidor Spring Boot em uma porta aleatória (`@LocalServerPort`).
+
+LIMPEZA DEPOIS DE CADA TESTE (@AfterEach):
+- Fecha a instância do navegador (`navegador.quit()`) para liberar os recursos.
+
+OBSERVAÇÕES:
+- Estes testes validam a jornada do usuário para a funcionalidade de competição (RF04, RF05),
+  garantindo que a interface do usuário se comporta conforme o esperado.

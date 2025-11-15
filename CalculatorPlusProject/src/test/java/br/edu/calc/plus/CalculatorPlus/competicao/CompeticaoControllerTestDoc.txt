@@ -1,0 +1,114 @@
+========================================
+CompeticaoControllerTest.java - Documentação
+========================================
+
+Visão Geral
+-----------
+Este arquivo contém testes unitários do controller CompeticaoController, responsável pelo fluxo
+de uma partida de competição no sistema.
+
+Objetivos dos testes:
+- Garantir que iniciar uma partida funcione corretamente.
+- Garantir que avançar perguntas funcione corretamente.
+- Garantir que o modelo (ModelMap) e a sessão (HttpSession) sejam manipulados corretamente.
+- Garantir que usuários que já competiram sejam redirecionados.
+
+Todos os testes usam Mockito para criar mocks de serviços (PartidaService, JogoService) e
+utilitários (LogadoUtil), e Spring MVC para mocks de ModelMap e HttpSession.
+
+----------------------------------------
+1. Setup Geral (@BeforeEach)
+----------------------------------------
+- Inicializa todos os mocks com MockitoAnnotations.openMocks(this).
+- Cria uma lista de 10 objetos Jogo mockados, representando as perguntas da partida.
+- Cria uma partida mockada (Partida) com:
+    - id = 10
+    - lista de jogos mockada
+- Logs explicativos mostram o progresso do setup.
+
+Objetivo: Preparar um ambiente consistente para todos os testes, evitando NullPointerException 
+ou ArrayIndexOutOfBoundsException.
+
+----------------------------------------
+2. Teste: deveRedirecionarSeJaCompetiuHoje
+----------------------------------------
+Cenário:
+- Usuário logado: ID = 1
+- Usuário já competiu hoje (userJaCompetiuHoje retorna true)
+
+Ação:
+- Chama controller.novoJogo(model, auth, attr, session)
+
+Resultado Esperado:
+- O controller deve redirecionar para a página principal de competição.
+- View retornada: "redirect:/competicao"
+
+Logs:
+- Mostra que o usuário está logado.
+- Mostra que o serviço detectou que o usuário já competiu.
+- Mostra a view retornada.
+
+----------------------------------------
+3. Teste: deveIniciarPartidaNova
+----------------------------------------
+Cenário:
+- Usuário logado: ID = 1
+- Usuário não competiu hoje (userJaCompetiuHoje retorna false)
+- Uma nova partida é iniciada (iniciarPartida retorna partida mockada com 10 jogos)
+
+Ação:
+- Chama controller.novoJogo(model, auth, attr, session)
+
+Resultado Esperado:
+- View retornada: "jogar"
+- ModelMap recebe:
+    - idPartida = 10
+    - jogo = primeiro jogo da lista
+    - pergunta = 1
+- HttpSession recebe tempoInicio
+
+Logs:
+- Mostra que o usuário não competiu hoje.
+- Mostra a view retornada.
+- Mostra atributos adicionados ao modelo e à sessão.
+
+----------------------------------------
+4. Teste: deveAvancarParaProximaPergunta
+----------------------------------------
+Cenário:
+- Usuário logado: ID = 1
+- Uma partida existente é salva (savePartida retorna a partida mockada)
+- Pergunta atual: 1
+- Avançando para pergunta 2 (nextJogo é chamado)
+
+Ação:
+- Chama controller.nextJogo("5", "10", "20", "1", model, auth, attr, sessao)
+
+Resultado Esperado:
+- View retornada: "jogar"
+- ModelMap atualizado com:
+    - idPartida = 10
+    - jogo = próximo jogo da lista
+    - pergunta = 2
+
+Observações:
+- Não altera tempoInicio da sessão.
+- Verifica se o controller atualiza corretamente os atributos de modelo entre perguntas.
+
+Logs:
+- Mostra que o usuário está logado.
+- Mostra que a partida foi salva.
+- Mostra a view retornada.
+- Mostra atributos adicionados ao modelo.
+
+----------------------------------------
+Conclusão
+----------------------------------------
+Este arquivo simula todo o fluxo de partida do controller com mocks para evitar dependências externas:
+
+- novoJogo → inicia partida ou redireciona se o usuário já competiu.
+- nextJogo → avança perguntas e atualiza modelo com dados do próximo jogo.
+- Todos os testes validam view retornada, modelo e, quando aplicável, sessão.
+
+Essencialmente, garante que a lógica do CompeticaoController funciona corretamente sem
+precisar de banco de dados ou dados reais.
