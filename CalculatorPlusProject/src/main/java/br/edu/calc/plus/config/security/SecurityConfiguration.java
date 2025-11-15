@@ -31,8 +31,8 @@ import br.edu.calc.plus.config.security.user.UserDetailsServiceImpl;
         jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private PasswordEncoder password;
+    //@Autowired
+    //private PasswordEncoder password;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
